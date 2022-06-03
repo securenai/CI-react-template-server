@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -24,6 +24,10 @@ export class AuthService {
     const payload = { username: user.name, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
+      expiresIn: parseInt(process.env.JWT_EXPIRES_IN),
+      userInfo: user,
+      success: true,
+      status: HttpStatus.OK,
     };
   }
 }
