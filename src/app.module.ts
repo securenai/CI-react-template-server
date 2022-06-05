@@ -20,9 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       cache: true,
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://nova:xwn2VCcDUw7JTOmA@cluster-stash.qw2o7.mongodb.net/StashDB?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.ATLAS_URL),
   ],
   controllers: [AppController],
   providers: [AppService],
