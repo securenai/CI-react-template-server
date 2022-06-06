@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { AuthRefreshService } from './auth.rf.service';
-import { LocalStrategy } from './local.strategy';
-import { JwtStrategy } from './jwt.strategy';
+import { LocalRefreshStrategy } from './local.rf.strategy';
+import { JwtRefreshStrategy } from './jwt.rf.strategy';
 import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,11 +12,11 @@ import { jwtConstants } from './constants';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1800s' },
+      secret: jwtConstants.refresh_secret,
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
-  providers: [AuthService, AuthRefreshService, LocalStrategy, JwtStrategy],
-  exports: [AuthService],
+  providers: [AuthRefreshService, LocalRefreshStrategy, JwtRefreshStrategy],
+  exports: [AuthRefreshService],
 })
-export class AuthModule {}
+export class AuthRefreshModule {}

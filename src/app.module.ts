@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { UserInventoryModule } from './userInventory/userInventory.module';
 import { MemoModule } from './memo/memo.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthRefreshModule } from './auth/auth.rf.module';
 import { ComponentModule } from './component/component.module';
 import { ConfigModule } from '@nestjs/config';
 
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     UserInventoryModule,
     MemoModule,
     AuthModule,
+    AuthRefreshModule,
     ComponentModule,
     ConfigModule.forRoot({
       isGlobal: true,
