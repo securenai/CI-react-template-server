@@ -6,6 +6,7 @@ import {
   Get,
   Res,
   Req,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -35,5 +36,28 @@ export class AppController {
   getProfile(@Req() req: any) {
     console.log(req.cookies);
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('auth/refresh')
+  async getNewCredentials(
+    @Request() req,
+    @Res({ passthrough: true }) response: any,
+  ) {
+    const incomingToken = req.headers.authorization.split(' ')[1];
+    if (incomingToken === req.cookies['auth-cookie'].refreshToken) {
+      const resp = await this.authService.login(req.user);
+      const secretData = {
+        token: resp.access_token,
+        refreshToken: resp.refresh_token,
+      };
+      response.cookie('auth-cookie', secretData);
+      return resp;
+    } else {
+      return {
+        success: false,
+        status: HttpStatus.UNAUTHORIZED,
+      };
+    }
   }
 }

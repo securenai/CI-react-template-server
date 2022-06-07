@@ -48,4 +48,8 @@ export class AuthService {
       status: HttpStatus.OK,
     };
   }
+
+  async renewCredentials(user: any) {
+    // return
+  }
 }
