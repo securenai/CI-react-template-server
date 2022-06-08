@@ -31,10 +31,10 @@ export class AppController {
     return resp;
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Req() req: any) {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     return req.user;
   }
 
