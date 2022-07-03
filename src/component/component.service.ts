@@ -12,7 +12,7 @@ export class ComponentService {
   ) {}
 
   findAll() {
-    console.log('findall');
+    // console.log('findall');
     return this.componentModel.find().exec();
   }
 }

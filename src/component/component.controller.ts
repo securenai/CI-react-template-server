@@ -10,6 +10,7 @@ import {
   Post,
   Query,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -20,10 +21,23 @@ import { ComponentService } from './component.service';
 export class ComponentController {
   constructor(private readonly componentService: ComponentService) {}
 
-  @UseGuards(JwtRefreshAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Req() req: any) {
-    console.log(req.cookies);
-    return this.componentService.findAll();
+  async findAll(@Req() req: any, @Res() response: any) {
+    // console.log(req.headers.authorization.split(' ')[1]);
+    // console.log(req.cookies['auth-cookie'].token);
+    if (
+      req.headers.authorization.split(' ')[1] !==
+      req.cookies['auth-cookie'].token
+    ) {
+      response.status(HttpStatus.UNAUTHORIZED).send({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        message: 'unauthorized',
+      });
+    } else {
+      const result = await this.componentService.findAll();
+      // console.log(result);
+      response.send(result);
+    }
   }
 }

@@ -8,13 +8,19 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 
+// const t = `${process.env.JWT_EXPIRES_IN}`;
+// console.log(jwtConstants.secret);
+// console.log(t);
+
 @Module({
   imports: [
     UserModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '300s' },
+      signOptions: {
+        expiresIn: jwtConstants?.jwt_expireIn === undefined ? '60s' : '60s',
+      },
     }),
   ],
   providers: [AuthService, AuthRefreshService, LocalStrategy, JwtStrategy],
