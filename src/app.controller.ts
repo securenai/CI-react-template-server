@@ -22,12 +22,13 @@ export class AppController {
   async login(@Request() req, @Res({ passthrough: true }) response: any) {
     const resp = await this.authService.login(req.user);
     console.log('---------');
-    console.log(response);
+    // console.log(response);
     const secretData = {
       token: resp.access_token,
       refreshToken: resp.refresh_token,
     };
     response.cookie('auth-cookie', secretData);
+    console.log(response);
     return resp;
   }
 
@@ -44,20 +45,21 @@ export class AppController {
     @Request() req,
     @Res({ passthrough: true }) response: any,
   ) {
-    const incomingToken = req.headers.authorization.split(' ')[1];
-    if (incomingToken === req.cookies['auth-cookie'].refreshToken) {
-      const resp = await this.authService.login(req.user);
-      const secretData = {
-        token: resp.access_token,
-        refreshToken: resp.refresh_token,
-      };
-      response.cookie('auth-cookie', secretData);
-      return resp;
-    } else {
-      return {
-        success: false,
-        status: HttpStatus.UNAUTHORIZED,
-      };
-    }
+    // console.log('req', req);
+    // const incomingToken = req.headers.authorization.split(' ')[1];
+    // if (incomingToken === req.cookies['auth-cookie'].refreshToken) {
+    const resp = await this.authService.login(req.user);
+    const secretData = {
+      token: resp.access_token,
+      refreshToken: resp.refresh_token,
+    };
+    response.cookie('auth-cookie', secretData);
+    return resp;
+    // } else {
+    //   return {
+    //     success: false,
+    //     status: HttpStatus.UNAUTHORIZED,
+    //   };
+    // }
   }
 }
