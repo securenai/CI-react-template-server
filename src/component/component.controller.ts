@@ -24,12 +24,9 @@ export class ComponentController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(@Req() req: any, @Res() response: any) {
-    // console.log(req.headers.authorization.split(' ')[1]);
+    console.log(req.headers.authorization.split(' ')[1]);
     // console.log(req.cookies['auth-cookie'].token);
-    if (
-      req.headers.authorization.split(' ')[1] !==
-      req.cookies['auth-cookie'].token
-    ) {
+    if (!req.headers.authorization.split(' ')[1]) {
       response.status(HttpStatus.UNAUTHORIZED).send({
         statusCode: HttpStatus.UNAUTHORIZED,
         message: 'unauthorized',
