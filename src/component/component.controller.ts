@@ -16,6 +16,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtRefreshAuthGuard } from '../auth/jwt-rf-auth.guard';
 import { ComponentService } from './component.service';
+import jwt_decode from 'jwt-decode';
 
 @Controller('api/component')
 export class ComponentController {
@@ -24,16 +25,15 @@ export class ComponentController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(@Req() req: any, @Res() response: any) {
-    console.log(req.headers.authorization.split(' ')[1]);
-    // console.log(req.cookies['auth-cookie'].token);
-    if (!req.headers.authorization.split(' ')[1]) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded: any = jwt_decode(token);
+    if (decoded && decoded.rf) {
       response.status(HttpStatus.UNAUTHORIZED).send({
         statusCode: HttpStatus.UNAUTHORIZED,
         message: 'unauthorized',
       });
     } else {
       const result = await this.componentService.findAll();
-      // console.log(result);
       response.send(result);
     }
   }

@@ -23,7 +23,7 @@ export class AuthService {
 
   async login(user: any) {
     console.log(user);
-    const payload = { username: user.name, sub: user._id };
+    const payload = { username: user.name, sub: user._id, rf: false };
     const payloadRefresh = { username: user.name, sub: user._id, rf: true };
     // const refreshTokenData = await this.authRefreshService.generateRefreshToken(
     //   user,
