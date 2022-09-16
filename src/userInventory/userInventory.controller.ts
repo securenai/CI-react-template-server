@@ -18,7 +18,7 @@ export class UserInventoryController {
 
   @Get()
   findAll(@Query() paginationQuery) {
-    console.log('123');
+    // console.log('123');
     // const { limit, offset } = paginationQuery;
     return this.userInventoryService.findAll();
   }

@@ -12,14 +12,14 @@ export class MemoService {
   ) {}
 
   findAll() {
-    console.log('findall');
+    // console.log('findall');
     return this.memoModel.find().exec();
   }
 
   async findByStashId(stashId: string) {
-    console.log(stashId);
+    // console.log(stashId);
     const memo = await this.memoModel.find({ stashId: stashId }).exec();
-    console.log(memo);
+    // console.log(memo);
     if (!memo) {
       throw new NotFoundException(`User #${stashId} not found`);
     }
@@ -27,7 +27,7 @@ export class MemoService {
   }
 
   async findOneById(id: string) {
-    console.log(id);
+    // console.log(id);
     const user = await this.memoModel.findOne({ _id: id }).exec();
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);

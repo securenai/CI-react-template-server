@@ -22,14 +22,14 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req, @Res({ passthrough: true }) response: any) {
     const resp = await this.authService.login(req.user);
-    console.log('---------');
+    // console.log('---------');
     // console.log(response);
     const secretData = {
       token: resp.access_token,
       refreshToken: resp.refresh_token,
     };
     response.cookie('auth-cookie', secretData);
-    console.log(response);
+    // console.log(response);
     return resp;
   }
 
@@ -46,9 +46,11 @@ export class AppController {
     @Request() req,
     @Res({ passthrough: true }) response: any,
   ) {
-    // console.log('req', req);
+    console.log('req headers', req.headers);
     const incomingToken = req.headers.authorization.split(' ')[1];
+    console.log('incomingToken', incomingToken);
     const decoded: any = jwt_decode(incomingToken);
+    console.log('decoded', decoded);
     if (decoded && decoded.rf === false) {
       response.status(HttpStatus.UNAUTHORIZED).send({
         statusCode: HttpStatus.UNAUTHORIZED,

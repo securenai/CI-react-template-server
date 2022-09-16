@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async findOneByName(name: string) {
-    console.log(name);
+    // console.log(name);
     const user = await this.userModel.findOne({ name: name }).exec();
     if (!user) {
       throw new NotFoundException(`User #${name} not found`);

@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async validateUser(name: string, password: string): Promise<any> {
-    console.log('222', name + password);
+    // console.log('222', name + password);
     const user = await this.userService.findOneByName(name);
     if (user && user.password === password) {
       const { password, ...result } = user;
@@ -22,7 +22,8 @@ export class AuthService {
   }
 
   async login(user: any) {
-    console.log(user);
+    console.log('user', user);
+    console.log('username', user.name);
     const payload = { username: user.name, sub: user._id, rf: false };
     const payloadRefresh = { username: user.name, sub: user._id, rf: true };
     // const refreshTokenData = await this.authRefreshService.generateRefreshToken(

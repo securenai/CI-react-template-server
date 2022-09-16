@@ -12,16 +12,16 @@ export class UserInventoryService {
   ) {}
 
   findAll() {
-    console.log('findall');
+    // console.log('findall');
     return this.userInventoryModel.find().exec();
   }
 
   async findAllByOwner(owner: string) {
-    console.log(owner);
+    // console.log(owner);
     const userInventory = await this.userInventoryModel
       .find({ owner: owner })
       .exec();
-    console.log(userInventory);
+    // console.log(userInventory);
     if (!userInventory) {
       throw new NotFoundException(`User #${owner} not found`);
     }
@@ -29,7 +29,7 @@ export class UserInventoryService {
   }
 
   async findOneById(id: string) {
-    console.log(id);
+    // console.log(id);
     const user = await this.userInventoryModel.findOne({ _id: id }).exec();
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);

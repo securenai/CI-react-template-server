@@ -23,8 +23,9 @@ export class ComponentController {
   constructor(private readonly componentService: ComponentService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Post()
   async findAll(@Req() req: any, @Res() response: any) {
+    console.log('body', req.body);
     const token = req.headers.authorization.split(' ')[1];
     const decoded: any = jwt_decode(token);
     if (decoded && decoded.rf) {
