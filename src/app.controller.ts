@@ -12,6 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
+import jwt_decode from 'jwt-decode';
 
 @Controller()
 export class AppController {
@@ -46,7 +47,15 @@ export class AppController {
     @Res({ passthrough: true }) response: any,
   ) {
     // console.log('req', req);
-    // const incomingToken = req.headers.authorization.split(' ')[1];
+    const incomingToken = req.headers.authorization.split(' ')[1];
+    const decoded: any = jwt_decode(incomingToken);
+    if (decoded && decoded.rf === false) {
+      response.status(HttpStatus.UNAUTHORIZED).send({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        message: 'unauthorized',
+      });
+      return response;
+    }
     // if (incomingToken === req.cookies['auth-cookie'].refreshToken) {
     const resp = await this.authService.login(req.user);
     const secretData = {
