@@ -34,7 +34,7 @@ export class AuthService {
     // console.log('------------------');
     const accessToken = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payloadRefresh, {
-      expiresIn: '3600s',
+      expiresIn: '300s',
     });
     // this.tokenService.create({ name: user.name, accessToken, refreshToken });
     return {
