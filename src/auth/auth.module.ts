@@ -19,7 +19,7 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {
-        expiresIn: jwtConstants?.jwt_expireIn === undefined ? '60s' : '60s',
+        expiresIn: jwtConstants?.jwt_expireIn === undefined ? '3600s' : '3600s',
       },
     }),
   ],
