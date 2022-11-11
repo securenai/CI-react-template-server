@@ -9,12 +9,14 @@ import { AuthModule } from './auth/auth.module';
 import { AuthRefreshModule } from './auth/auth.rf.module';
 import { ComponentModule } from './component/component.module';
 import { ConfigModule } from '@nestjs/config';
+import { TableDataModule } from './tableData/tableData.module';
 
 @Module({
   imports: [
     UserModule,
     UserInventoryModule,
     MemoModule,
+    TableDataModule,
     AuthModule,
     AuthRefreshModule,
     ComponentModule,

@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class UserInventoryDto {
+export class MemoDto {
   @IsString()
   readonly owner: string;
   @IsString()

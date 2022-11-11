@@ -2,40 +2,33 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-// import { UserDto } from './dto/memo.dto';
-import { Memo } from '../schemas/memo.schema';
+// import { UserDto } from './dto/tableData.dto';
+import { TableData } from '../schemas/tableData.schema';
 
 @Injectable()
-export class MemoService {
+export class TableDataService {
   constructor(
-    @InjectModel(Memo.name)
-    private readonly memoModel: Model<Memo>,
+    @InjectModel(TableData.name)
+    private readonly tableDataModel: Model<TableData>,
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
-    // const { limit, offset } = paginationQuery;
-    // return this.memoRepository.find({
-    //   relations: {
-    //     flavors: true,
-    //   },
-    //   skip: offset, // 👈
-    //   take: limit, // 👈
-    // });
+    const { limit, offset } = paginationQuery;
+    return this.tableDataModel.find().skip(offset).limit(limit).exec();
   }
-
   // async findByStashId(stashId: string) {
   //   // console.log(stashId);
-  //   const memo = await this.memoModel.find({ stashId: stashId }).exec();
-  //   // console.log(memo);
-  //   if (!memo) {
+  //   const tableData = await this.tableDataModel.find({ stashId: stashId }).exec();
+  //   // console.log(tableData);
+  //   if (!tableData) {
   //     throw new NotFoundException(`User #${stashId} not found`);
   //   }
-  //   return memo;
+  //   return tableData;
   // }
 
   // async findOneById(id: string) {
   //   // console.log(id);
-  //   const user = await this.memoModel.findOne({ _id: id }).exec();
+  //   const user = await this.tableDataModel.findOne({ _id: id }).exec();
   //   if (!user) {
   //     throw new NotFoundException(`User #${id} not found`);
   //   }
