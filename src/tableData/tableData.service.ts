@@ -14,9 +14,11 @@ export class TableDataService {
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
-    const count = this.tableDataModel.countDocuments();
-    const result = this.tableDataModel.find().skip(offset).limit(limit).exec();
-    return { result, count };
+    return this.tableDataModel.find().skip(offset).limit(limit).exec();
+  }
+
+  findCount() {
+    return this.tableDataModel.countDocuments();
   }
   // async findByStashId(stashId: string) {
   //   // console.log(stashId);

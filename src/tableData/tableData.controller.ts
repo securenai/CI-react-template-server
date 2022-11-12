@@ -18,10 +18,12 @@ export class TableDataController {
   constructor(private readonly tableDataService: TableDataService) {}
 
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
     // console.log('123');
-    // const { limit, offset } = paginationQuery;
-    return this.tableDataService.findAll(paginationQuery);
+    const result = await this.tableDataService.findAll(paginationQuery);
+    const count = await this.tableDataService.findCount();
+    // console.log(result, count);
+    return { result, count };
   }
 
   // @Get(':stashId')
